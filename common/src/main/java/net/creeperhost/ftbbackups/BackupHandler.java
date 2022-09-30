@@ -23,6 +23,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
@@ -58,7 +59,7 @@ public class BackupHandler {
 
     public static void init(MinecraftServer minecraftServer) {
         serverRoot = minecraftServer.getServerDirectory().toPath().normalize().toAbsolutePath();
-        backupFolderPath = serverRoot.resolve("backups");
+        backupFolderPath = Strings.isEmpty(Config.cached().save_path) ? serverRoot.resolve("backups") : Path.of(Config.cached().save_path);
         createBackupFolder(backupFolderPath);
         loadJson();
         FTBBackups.LOGGER.info("Starting backup cleaning thread");

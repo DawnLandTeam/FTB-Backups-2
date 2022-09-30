@@ -35,4 +35,7 @@ public class ConfigData {
 
     @Comment("Display file size in backup message")
     public boolean display_file_size = false;
+
+    @Comment("Custom backups file save path")
+    public String save_path = null;
 }
